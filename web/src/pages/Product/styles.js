@@ -11,6 +11,7 @@ export const Container = styled.div`
 export const Main = styled.main`
   margin: 2rem auto;
   max-width: 1125px;
+  width: 100%;
   padding-inline: 1.5rem;
   
   @media (max-width: ${DEVICE_BREAKPOINTS.LG}) {
@@ -62,8 +63,6 @@ export const Dish = styled.div`
   }
 
   @media (max-width: ${DEVICE_BREAKPOINTS.XS}) {
-    max-width: 240px;
-
     > img {
       width: 220px;
       height: 220px;
@@ -85,6 +84,10 @@ export const Content = styled.div`
     font-size: 1.25rem;
   }
 
+  > button {
+    margin-top: 48px;
+  }
+
   @media (max-width: ${DEVICE_BREAKPOINTS.LG}) {
     h1 {
       font-size: 2.3rem;
@@ -101,6 +104,10 @@ export const Content = styled.div`
 
     p {
       font-size: 1.14rem;
+    }
+
+    > button {
+      width: 100%;
     }
   }
 

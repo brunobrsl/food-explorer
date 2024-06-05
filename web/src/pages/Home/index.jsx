@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { SideMenu } from '../../components/SideMenu';
-import { Section } from '../../components/Section';
+import { Sections } from '../../components/Sections';
 import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
 
@@ -9,7 +9,12 @@ import { Container, Main, Banner } from './styles';
 
 export function Home() {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
-  
+  const [search, setSearch] = useState("");
+
+  function handleSearch(value) {
+    setSearch(value);
+  }
+
   return (
     <Container>
       <SideMenu 
@@ -17,7 +22,10 @@ export function Home() {
         onCloseMenu={() => setMenuIsOpen(false)}
       />
 
-      <Header onOpenMenu={() => setMenuIsOpen(true)} />
+      <Header
+        search={handleSearch}
+        onOpenMenu={() => setMenuIsOpen(true)} 
+      />
 
       <Main>
         <Banner>
@@ -30,9 +38,7 @@ export function Home() {
           </div>
         </Banner>
 
-        <Section title="Refeições" />
-        <Section title="Sobremesas" />
-        <Section title="Bebidas" />
+        <Sections search={search} />
       </Main>
       
       <Footer />

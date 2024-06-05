@@ -21,15 +21,33 @@ export const Container = styled.header`
     }
   }
 
-  > button:first-child,
-  > button:nth-child(5) {
+  > .favorites-btn {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    background: none;
+    border: 0;
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};
+
+    font-family: 'Roboto', sans-serif;
+
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  > .new-btn,
+  > .cart-btn {
+    width: 216px;
+  }
+
+  > .menu-btn,
+  > .orders-btn {
     display: none;
     
   }
 
-  > button:last-child {
+  > .signout-btn {
     display: flex;
-    border: 0;
     background: none;
     align-items: center;
     justify-content: center;
@@ -44,19 +62,22 @@ export const Container = styled.header`
   @media (max-width: ${DEVICE_BREAKPOINTS.MD}) {
     padding: 48px 28px 28px;
     justify-content: space-between;
+    gap: 0;
 
     > div:nth-child(3),
-    > button:nth-child(4),
-    > button:last-child {
+    > .favorites-btn,
+    > .new-btn,
+    > .cart-btn,
+    > .signout-btn {
       display: none;
     }
 
-    > button:first-child,
-    > button:nth-child(5) {
+    > .menu-btn,
+    > .orders-btn {
       display: flex;
     }
 
-    > button:nth-child(5) {
+    > .orders-btn {
       position: relative;
       padding-top: 5px;
       padding-right: 5px;
@@ -84,46 +105,76 @@ export const Container = styled.header`
   }
 `;
 
-export const Title = styled.div`
+export const Title = styled.a`
   display: flex;
-  gap: 10px;
-  align-items: center;
+  align-self: center;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
 
-  > h1 {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.5rem;
-    white-space: nowrap;
+  > .logo {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    h1 {
+      font-size: 1.5rem;
+      white-space: nowrap;
+    }
+  
+    svg {
+      color: ${({ theme }) => theme.COLORS.CAKE_100};
+      width: 30px;
+      height: 30px;
+    }
   }
 
-  > svg {
-    color: ${({ theme }) => theme.COLORS.CAKE_100};
-    width: 30px;
-    height: 30px;
+  > .admin-logo {
+    color: ${({ theme }) => theme.COLORS.CAKE_200};
+    font-size: 12px;
+    align-self: flex-end;
   }
 
   @media (max-width: ${DEVICE_BREAKPOINTS.MD}) {
+    justify-content: center;
+    width: 100%;
+    flex-direction: row;
     gap: 8px;
-
-    > h1 {
-      font-size: 1.5rem;
+    
+    > .logo {
+      gap: 8px;
+  
+      > h1 {
+        font-size: 1.5rem;
+      }
+  
+      > svg {
+        width: 24px;
+        height: 24px;
+      }
     }
 
-    > svg {
-      width: 24px;
-      height: 24px;
+    > .admin-logo {
+      margin-top: 4px;
+      align-self: center;
     }
   }
 
   @media (max-width: ${DEVICE_BREAKPOINTS.XS}) {
-    gap: 6px;
-
-    > h1 {
-      font-size: 1.3rem;
+    > .logo {
+      gap: 6px;
+  
+      > h1 {
+        font-size: 1.3rem;
+      }
+  
+      > svg {
+        width: 20px;
+        height: 20px;
+      }
     }
-
-    > svg {
-      width: 20px;
-      height: 20px;
+    
+    > .admin-logo {
+      font-size: 10px;
     }
   }
 `;

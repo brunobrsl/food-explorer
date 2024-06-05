@@ -1,4 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { useCart } from '../../hooks/cart';
+import { useAuth } from '../../hooks/auth';
+import { USER_ROLE } from '../../utils/roles';
+
+import { api } from '../../services/api';
 
 import { Minus, Plus, Receipt } from '@phosphor-icons/react';
 
@@ -13,7 +20,55 @@ import { Footer } from '../../components/Footer';
 import { Container, Main, Dish, Content, Ingredients, Buttons, Quantity } from './styles';
 
 export function Product() {
+  const { addItemToCart } = useCart();
+  const { user } = useAuth();
+
+  const [data, setData] = useState(null);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const params = useParams();
+  const navigate = useNavigate();
+  
+  const imageUrl = data && `${api.defaults.baseURL}/files/${data.image}`;
+
+  function handleBack() {
+    navigate(-1);
+  }
+
+  function handleEditProduct() {
+    navigate(`/products/edit/${params.id}`);
+  }
+
+  function handleDecreaseQuantity() {
+    if (quantity > 1) {
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      setTotalPrice(newQuantity * data.price);
+    }
+  }
+
+  function handleIncreaseQuantity() {
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    setTotalPrice(newQuantity * data.price);
+  }
+
+  function handleAddToCart() {
+    addItemToCart(data, quantity);
+    navigate("/cart");
+  }
+ 
+  useEffect(() => {
+    async function fetchProduct() {
+      const response = await api.get(`/products/${params.id}`);
+      setData(response.data);
+      setTotalPrice(response.data.price);
+    }
+
+    fetchProduct();
+  }, []);
 
   return (
     <Container>
@@ -25,36 +80,45 @@ export function Product() {
       <Header onOpenMenu={() => setMenuIsOpen(true)} />
 
       <Main>
-        <ButtonText title="voltar" />
+        <ButtonText title="voltar" onClick={handleBack} />
+        {
+          data &&
+          <Dish>
+            <img src={imageUrl} alt={`Imagem do Produto - (${data.name})`} />
 
-        <Dish>
-          <img src="../../assets/product.png" />
+            <Content>
+              <h1>{data.name}</h1>
+              <p>{data.description}</p>
 
-          <Content>
-            <h1>Salada Ravanello</h1>
-            <p>Rabanetes, folhas verdes e molho agridoce salpicados com gergelim. O pão naan dá um toque especial.</p>
+              <Ingredients>
+                {
+                  data.tags &&
+                  data.tags.map(tag => (
+                    <Ingredient 
+                      key={String(tag.id)}
+                      title={tag.name} 
+                    />
+                  ))
+                }
+              </Ingredients>
 
-            <Ingredients>
-              <Ingredient title="alface" />
-              <Ingredient title="cebola" />
-              <Ingredient title="pão naan" />
-              <Ingredient title="pepino" />
-              <Ingredient title="rabanete" />
-              <Ingredient title="tomate" />
-            </Ingredients>
+              {[USER_ROLE.CUSTOMER].includes(user.role) &&
+                <Buttons>
+                  <Quantity>
+                    <ButtonIcon icon={Minus} onClick={handleDecreaseQuantity} />
+                    <span>{String(quantity).padStart(2, '0')}</span>
+                    <ButtonIcon icon={Plus} onClick={handleIncreaseQuantity} />
+                  </Quantity>
 
-            <Buttons>
-              <Quantity>
-                <ButtonIcon icon={Minus} />
-                <span>01</span>
-                <ButtonIcon icon={Plus} />
-              </Quantity>
+                  <Button icon={Receipt} title={`pedir ∙ R$ ${totalPrice.toFixed(2).replace('.', ',')}`} onClick={handleAddToCart} />
+                  <Button title={`incluir ∙ R$ ${totalPrice.toFixed(2).replace('.', ',')}`} onClick={handleAddToCart} />
+                </Buttons>
+              }     
 
-              <Button icon={Receipt} title="pedir ∙ R$ 25,00" />
-              <Button title="incluir ∙ R$ 25,00" />
-            </Buttons>
-          </Content>
-        </Dish>
+              {[USER_ROLE.ADMIN].includes(user.role) && <Button title="Editar prato" onClick={handleEditProduct} />}
+            </Content>
+          </Dish>
+        }
       </Main>
 
       <Footer />

@@ -2,18 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import GlobalStyles from './styles/global';
 import { ThemeProvider } from 'styled-components';
+import 'react-image-crop/dist/ReactCrop.css';
 
-import { EditProduct } from './pages/EditProduct';
+import { AuthProvider } from './hooks/auth';
+import { CartProvider } from './hooks/cart';
+
+import { Routes } from './routes';
 
 import theme from './styles/theme';
-
-import 'react-image-crop/dist/ReactCrop.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <EditProduct />
+      <AuthProvider>
+        <CartProvider>
+          <Routes />
+        </CartProvider>
+      </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>,
 )

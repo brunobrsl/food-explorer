@@ -3,9 +3,12 @@ import { DEVICE_BREAKPOINTS } from '../../styles/deviceBreakpoints';
 
 export const Container = styled.section`
   width: 100%;
-  margin-bottom: 6rem;
+  
+  > .section {
+    margin-bottom: 6rem;
+  }
 
-  > h2 {
+  h2 {
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
     font-size: 2rem;
     font-weight: 500;
@@ -39,6 +42,12 @@ export const Container = styled.section`
     top: 1.5rem;
   }
 
+  .no-products {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    padding: 0px 0;
+  }
+
   @media (max-width: ${DEVICE_BREAKPOINTS.XL}) {
     .slick-prev {
       left: 0;
@@ -50,9 +59,11 @@ export const Container = styled.section`
   }
 
   @media (max-width: ${DEVICE_BREAKPOINTS.LG}) {
-    margin-bottom: 5rem;
+    > .section {
+      margin-bottom: 5rem;
+    }
 
-    > h2 {
+    h2 {
       font-size: 1.75rem;
     }
     
@@ -70,9 +81,7 @@ export const Container = styled.section`
   }
 
   @media (max-width: ${DEVICE_BREAKPOINTS.MD}) {
-    
-
-    > h2 {
+    h2 {
       font-size: 1.28rem;
     }
 
@@ -96,7 +105,9 @@ export const Container = styled.section`
   }
 
   @media (max-width: ${DEVICE_BREAKPOINTS.SM}) {
-    margin-bottom: 4.5rem;
+    > .section {
+      margin-bottom: 4.5rem;
+    }
     
     .slick-arrow {
       width: 16px;
@@ -118,7 +129,9 @@ export const Container = styled.section`
   }
 
   @media (max-width: ${DEVICE_BREAKPOINTS.XS}) {
-    margin-bottom: 2.5rem;
+    > .section {
+      margin-bottom: 2.5rem;
+    }
 
     .slick-arrow {
       width: 12px;

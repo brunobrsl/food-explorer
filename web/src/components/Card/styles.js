@@ -8,76 +8,98 @@ export const Container = styled.a`
   border: 0;
   background: ${({ theme }) => theme.COLORS.DARK_200};
   align-items: center;
+  justify-content: center;
   gap: 16px;
   border-radius: 8px;
   padding: 24px;
   position: relative;
   max-width: 304px;
-
-  > button {
+  min-height: 462px;
+  
+  > svg {
     position: absolute;
     right: 18px;
     top: 16px;
+    font-size: 24px;
+    transition: color 0.2s;
 
-    svg {
-      font-size: 24px;
+    &:hover {
+      color: ${({ theme }) => theme.COLORS.LIGHT_300};
     }
   }
 
+  > .favorite {
+    color: ${({ theme }) => theme.COLORS.TOMATO_300};
+    transition: color 0.2s;
+
+    &:hover {
+      color: ${({ theme }) => theme.COLORS.TOMATO_200};
+    }
+  }
+  
   > img {
     width: 176px;
     height: 176px;
+    border-radius: 50%;
   }
-
+  
   > h3 {
     font-size: 1.25rem;
     max-width: 256px;
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
     line-height: 140%;
   }
-
+  
   > p {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     font-family: 'Roboto', sans-serif;
     font-size: 0.87rem;
     line-height: 160%;
     color: ${({ theme }) => theme.COLORS.LIGHT_400};
     max-width: 256px;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-
+  
   > strong {
     font-family: 'Roboto', sans-serif;
     color: ${({ theme }) => theme.COLORS.CAKE_200};
     font-size: 2rem;
     font-weight: 400;
     line-height: 160%;
+    margin-bottom: 20px;
   }
-
+  
   @media (max-width: ${DEVICE_BREAKPOINTS.LG}) {
     > img {
       width: 137px;
       height: 137px;
     }
-
+    
     > h3 {
       font-size: 1rem;
     }
-
+    
     > p {
       font-size: 0.75rem;
     }
-
+    
     > strong {
       font-size: 1.75rem;
     }
   }
-
+  
   @media (max-width: ${DEVICE_BREAKPOINTS.MD}) {
     margin: 0;
     max-width: 210px;
     gap: 12px;
     padding: 16px;
-
+    min-height: 292px;
+    
+    
     > img {
       width: 98px;
       height: 98px;
@@ -88,6 +110,7 @@ export const Container = styled.a`
     }
 
     > strong {
+      margin-bottom: 12px;
       font-size: 1.14rem;
     }
   }

@@ -1,4 +1,8 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { useAuth } from '../../hooks/auth';
+import { USER_ROLE } from '../../utils/roles';
 
 import { X, MagnifyingGlass } from '@phosphor-icons/react';
 
@@ -9,6 +13,22 @@ import { ButtonIcon } from '../ButtonIcon';
 import { Input } from '../Input';
 
 export function SideMenu({ menuIsOpen, onCloseMenu }) {
+  const { signOut, user } = useAuth();
+  const navigate = useNavigate();
+
+  function handleNewProduct() {
+    navigate("/add");
+  }
+
+  function handleFavorites() {
+    navigate("/favorites");
+  }
+
+  function handleSignOut() {
+    navigate("/");
+    signOut(user);
+  }
+
   useEffect(() => {
     if (menuIsOpen) {
       document.body.style.overflow = 'hidden';
@@ -35,8 +55,9 @@ export function SideMenu({ menuIsOpen, onCloseMenu }) {
           placeholder="Busque por pratos ou ingredientes"
         />
 
-        <ButtonMenu title="Novo prato" />
-        <ButtonMenu title="Sair" />
+        {[USER_ROLE.ADMIN].includes(user.role) && <ButtonMenu title="Novo prato" onClick={handleNewProduct} />}
+        {[USER_ROLE.CUSTOMER].includes(user.role) && <ButtonMenu title="Meus favoritos" onClick={handleFavorites} />}
+        <ButtonMenu title="Sair" onClick={handleSignOut} />
       </Content>
     </Container>
   );

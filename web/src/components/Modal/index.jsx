@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import ReactCrop, { centerCrop, convertToPixelCrop, makeAspectCrop } from 'react-image-crop'
+import ReactCrop, { centerCrop, convertToPixelCrop, makeAspectCrop } from 'react-image-crop';
 
 import { X } from '@phosphor-icons/react';
 
@@ -10,7 +10,7 @@ import { Container, Box } from './styles';
 const ASPECT_RATIO = 1;
 const MIN_DIMENSION = 390;
 
-export function Modal({ updateAvatar, closeModal }) {
+export function Modal({ updateImage, closeModal }) {
   const [imgSrc, setImgSrc] = useState('');
   const [crop, setCrop] = useState();
   const [error, setError] = useState('');
@@ -111,10 +111,10 @@ export function Modal({ updateAvatar, closeModal }) {
     <Container>
       <Box ref={modalRef}>
         <div className="btn">
-          <label htmlFor="img-input">
+          <label htmlFor="image">
             Escolher arquivo
             <input 
-              id="img-input"
+              id="image"
               type="file"
               accept="image/*"
               onChange={onSelectFile}
@@ -146,7 +146,7 @@ export function Modal({ updateAvatar, closeModal }) {
                   convertToPixelCrop(crop, imgRef.current.width, imgRef.current.height)
                 );
                 const dataUrl = previewCanvasRef.current.toDataURL();
-                updateAvatar(dataUrl);
+                updateImage(dataUrl);
                 closeModal();
               }} 
             />

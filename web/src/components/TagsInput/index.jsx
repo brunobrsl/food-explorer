@@ -5,8 +5,8 @@ import { X, Plus } from '@phosphor-icons/react';
 import { Container } from './styles';
 
 export function TagsInput({ id, onClick, ...rest }) {
-  const [tag, setTag] = useState('');
   const [tags, setTags] = useState([]);
+  const [tag, setTag] = useState('');
 
   function handleChange(e) {
     const { value } = e.target;

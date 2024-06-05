@@ -1,4 +1,8 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Hexagon } from '@phosphor-icons/react';
+
+import { api } from '../../services/api';
 
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
@@ -6,6 +10,43 @@ import { Input } from '../../components/Input';
 import { Container, Title, Form } from './styles';
 
 export function SignUp() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  function handleBack() {
+    navigate(-1);
+  }
+
+  function handleSignUp() {
+    if(!name || !email || !password) {
+      return alert("Preencha todos os campos!");
+    }
+
+    api.post("/users", { name, email, password })
+      .then(() => {
+        alert("Usuário cadastrado com sucesso!");
+        navigate("/login");
+      })
+      .catch(error => {
+        if(error.response) {
+          alert(error.response.data.message);
+        } else {
+          alert("Não foi possível cadastrar");
+          console.log(error);
+        }
+      })
+  }
+
+  function handleKeyDown(event) {
+    if(event.key === 'Enter') {
+      event.preventDefault();
+      handleSignUp();
+    }
+  }
+
   return (
     <Container>
       <Title>
@@ -16,27 +57,36 @@ export function SignUp() {
       <Form>
         <h1>Crie sua conta</h1>
         
-        <label>Seu nome</label>
-        <Input 
+        <label htmlFor="name">Seu nome</label>
+        <Input
+          id="name"
           placeholder="Exemplo: Maria da Silva"
           type="text"
+          onKeyDown={handleKeyDown}
+          onChange={e => setName(e.target.value)}
         />
 
-        <label>Email</label>
-        <Input 
+        <label htmlFor="email">Email</label>
+        <Input
+          id="email"
           placeholder="Exemplo: exemplo@exemplo.com.br"
           type="text"
+          onKeyDown={handleKeyDown}
+          onChange={e => setEmail(e.target.value)}
         />
 
-        <label>Senha</label>
-        <Input 
+        <label htmlFor="password">Senha</label>
+        <Input
+          id="password"
           placeholder="No mínimo 6 caracteres"
           type="password"
+          onKeyDown={handleKeyDown}
+          onChange={e => setPassword(e.target.value)}
         />
 
-        <Button title="Criar conta" />
+        <Button title="Criar conta" onClick={handleSignUp} />
 
-        <a href="">Já tenho uma conta</a>
+        <a onClick={handleBack}>Já tenho uma conta</a>
       </Form>
     </Container>
   );
