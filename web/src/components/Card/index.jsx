@@ -89,8 +89,8 @@ export function Card({ data, onClick, productId }) {
 
   return (
     <Container onClick={onClick} >
-      {[USER_ROLE.CUSTOMER].includes(user.role) && isFavorite ? <HeartStraight className="favorite" onClick={toggleFavorite} weight="fill" /> :  <HeartStraight onClick={toggleFavorite} />}
       {[USER_ROLE.ADMIN].includes(user.role) && <ButtonIcon icon={PencilSimple} onClick={handleEditProduct} />}
+      {[USER_ROLE.CUSTOMER].includes(user.role) && (isFavorite ? <HeartStraight className="favorite" onClick={toggleFavorite} weight="fill" /> :  <HeartStraight onClick={toggleFavorite} />)}
 
       <img src={imageUrl} alt={`Imagem do Produto - (${data.name})`} />
 

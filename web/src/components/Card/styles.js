@@ -36,6 +36,16 @@ export const Container = styled.a`
       color: ${({ theme }) => theme.COLORS.TOMATO_200};
     }
   }
+
+  > button {
+    position: absolute;
+    right: 18px;
+    top: 16px;
+
+    svg {
+      font-size: 24px;
+    }
+  }
   
   > img {
     width: 176px;
@@ -127,6 +137,10 @@ export const Container = styled.a`
     > img {
       width: 78px;
       height: 78px;
+    }
+
+    > svg {
+      font-size: 16px;
     }
 
     > button {
