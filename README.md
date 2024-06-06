@@ -27,6 +27,13 @@ O projeto FoodExplorer consiste em uma aplicação para um restaurante, onde o c
 - [Acesse o projeto finalizado, online](https://food-explorer-brunobrsl.netlify.app/)
 
 
+## ✂️ Componente de Recortar Imagens
+
+Foi implementado um componente para recortar as imagens e adicioná-las ao produto.
+
+![Preview](./web/src/assets/add-preview.PNG)
+![Preview](./web/src/assets/crop-preview.PNG)
+
 ## 📁 Executar o front-end
 
 Entre na pasta web
