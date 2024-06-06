@@ -29,10 +29,11 @@ O projeto FoodExplorer consiste em uma aplicação para um restaurante, onde o c
 
 ## ✂️ Componente de Recortar Imagens
 
-Foi implementado um componente para recortar as imagens e adicioná-las ao produto.
+Foi implementado um componente para recortar as imagens e adicioná-las ao produto, ele também realiza uma verificação para checar se a imagem escolhida respeita o tamanho mínimo definido.
 
 ![Preview](./web/src/assets/add-preview.PNG)
 ![Preview](./web/src/assets/crop-preview.PNG)
+![Preview](./web/src/assets/cropped-image-preview.PNG)
 
 ## 📁 Executar o front-end
 
